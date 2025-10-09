@@ -77,7 +77,7 @@ billboard$fiftyaboveorbelowpttwo <- ifelse(billboard$wk1 > 50, "above 50", "belo
 
 8. Compare your results. 
 ```{r}
-View(billboard)
+#View(billboard)
 #they look the same! yay
 ```
 
