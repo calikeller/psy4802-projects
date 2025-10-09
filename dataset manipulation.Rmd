@@ -103,14 +103,19 @@ longdat3 <- melt(agressiondata, id.vars = c("subjNo", "ageGroup", "parentReportG
 ```
 
 ###practice: 
+long format is when you combine repeated measurements
 
 1. open the billboard dataset. 
 ```{r}
 data(billboard)
+#to find column positions
+colnames(billboard)
+
+summarize(mean = mean(score, na.rm = TRUE))
 ```
 2. convert it from wide to long format. 
 ```{r}
-
+billboardlong <- pivot_longer(billboard, cols = 4:79, names_to = "week", values_to = "score" )
 ```
 
 ### Learning Outcome 2: Transform data from long to wide
@@ -120,7 +125,9 @@ As above, we'll restructure the data in three ways. Again, some ways are more in
 The pair function for pivot_longer. It has the following arguments: 
 `pivot_wider(dataset, id columns, names_from, values_from)`
 ```{r}
+aggressionWide <- pivot_wider(aggressionLongDat, id_cols = c("subjNo", "ageGroup", "parentReportGender", "condition"), names_from = "timePoint", values_from = "aggressionScore")
 
+aggressionLongDat %>% 
 ```
 
 **spread** 
@@ -128,7 +135,7 @@ is the pair function for gather. It has the following arguments:
 `spread(data, key, value, columns to make wide)`
 key = timepoint; value = aggression score
 ```{r}
-
+aggressionWideDat2 <- spread(aggressionLongDat, key = "timePoint", value = "aggressionScore")
 ```
 
 **dcast**
@@ -138,23 +145,32 @@ dcast has the following arguments:
 ```{r}
 #datWide3<- dcast(aggressionLong3, formula= subjNo+ ageGroup+parentReportGender+condition~variable name)
 
+datWide3 <- dcast(aggressionLongDat, formula = subjNo+ageGroup+parentReportGender+condition~timePoint)
 ```
 **Note:** dcast is really not intuitive. I pretty much determine the correct order through trial and error every time. 
 
 #### Learning Outcome 2: Practice
+pivot_wider(dataset, id columns, names_from, values_from)
 1. Open the ChickWeight dataset.
 ```{r}
-
+data("ChickWeight")
+View(ChickWeight)
 ```
 
 2. Convert it from long to wide format. 
 ```{r}
-
+chickiewide <- pivot_wider(ChickWeight, id_cols = c("Chick", "Diet"), names_from = "Time", values_from = "weight")
+#can only use a column name once
+a <- pivot_wider(ChickWeight, id_cols = (1:2), )
 ```
 
 3. Convert from wide to long. 
 ```{r}
+chickLong <- pivot_longer(chickiewide, cols = c(colnames(chickiewide)[3:14]), names_to = "Time", values_to = "weight")
+#contains ~20 more rows than original
 
+chickLong2 <- na.omit(chickLong)
+# is.na will help you remove specific nas from
 ```
 
 
@@ -182,15 +198,25 @@ you can use some of the commands we've already used in a different structure
 
 1) open sleep data set
 ```{r}
-
+data(sleep)
+View(sleep)
 ```
 
 2) identify the type of data
+```{r}
+#this is a long data set
+```
+
 
 3) change it to the other type
+```{r}
+sleepywide <- pivot_wider(sleep, id_cols = "ID", names_from = "group", values_from = "extra")
+```
+
 
 4) Go back to the chick weight dataset and take all data from chick 3 and put it in wide format 
 ```{r}
+chickie3 <- chickiewide[3,]
 
 ```
 
