@@ -1,0 +1,87 @@
+---
+title: "ggplot part 1 homework"
+author: "Cali Keller"
+date: "2025-10-27"
+output: html_document
+---
+
+1. open the starwars dataset in tidyverse
+```{r}
+library(tidyverse)
+data(starwars)
+```
+
+2. create a graph showing the frequency of eye colors in the dataset. 
+```{r}
+ggplot(starwars, aes(eye_color))+
+  geom_bar()
+```
+
+
+3. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc. 
+```{r}
+ggplot(starwars, aes(eye_color))+
+  geom_bar(fill = "seagreen", color = "black")+
+  theme_classic()+
+  xlab("Eye Color")+
+  ylab("Frequency")+
+  ggtitle("Starwars Character's Eye Color Frequency")
+
+```
+
+4. Create a graph displaying information about character's height in each homeworld. 
+```{r}
+ggplot(starwars, aes(homeworld, height))+
+  geom_boxplot()
+```
+
+5. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(homeworld, height))+
+  geom_boxplot()+
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 55, hjust = 1))+
+  xlab("Homeworld")+
+  ylab("Height")+
+  ggtitle("Starwars Character's Height vs Homeworld")
+
+#i found the theme for the x axis on chat because i hated how ugly the lables were otherwise
+```
+
+6. Create a graph of character's height by mass. 
+```{r}
+ggplot(starwars, aes(mass, height))+
+  geom_point()
+```
+
+
+7.Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(mass, height))+
+  geom_point(color = "lightblue")+
+  xlab("Mass")+
+  ylab("Height")+
+  theme_classic()+
+  ggtitle("Starwars Character's Height by Mass")
+  
+```
+
+8. Add gender as a third variable to your graph of height by mass. 
+```{r}
+ggplot(starwars, aes(mass, height, color = gender))+
+  geom_point()
+```
+
+9. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(mass, height, color = gender))+
+  geom_point()+
+  xlab("Mass")+
+  ylab("Height")+
+  scale_color_manual(name = "Gender", values = c("pink", "lightblue"))+
+  ggtitle("Starwars Characters Mass and Height by Gender")+
+  theme_classic()+
+  facet_wrap(~gender)
+
+```
+
