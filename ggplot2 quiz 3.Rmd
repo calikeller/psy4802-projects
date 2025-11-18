@@ -10,6 +10,7 @@ output: html_document
 #i loaded it by clicking import dataset
 View(spotify)
 ```
+ should include the code in the markdown file so it's reproducible
 
 2. Create a bar graph of the artist column (Hint: use theme(axis.text.x = element_text(angle = 90)) to rotate the x axis).
 ```{r}
@@ -18,7 +19,7 @@ ggplot(spotify, aes(artist))+
   geom_bar()+
   theme(axis.text.x = element_text(angle = 90))
 ```
-
+√
 3. Add genre as a third variable in your graph.
 ```{r}
 library(ggplot2)
@@ -26,7 +27,7 @@ ggplot(spotify, aes(artist, fill = genre))+
   geom_bar()+
   theme(axis.text.x = element_text(angle = 90))
 ```
-
+√
 4. Use color brewer to add color to your graph in 3. 
 ```{r}
 library(RColorBrewer)
@@ -34,7 +35,7 @@ ggplot(spotify, aes(artist, fill = genre))+
   geom_bar()+
   scale_color_brewer(palette = "GnBu")
 ```
-
+√
 5. Place the legend for the graph you made in 3 on the bottom of the graph. 
 ```{r}
 ggplot(spotify, aes(artist, fill = genre))+
@@ -42,7 +43,7 @@ ggplot(spotify, aes(artist, fill = genre))+
   scale_color_brewer(palette = "GnBu")+
   theme(legend.position = "bottom")
 ```
-
+√
 As you probably recognized, the graph you made is really hard to read.
 
 6. Separate the genre column into multiple columns (e.g. so each genre listed is in a unique column)
@@ -50,31 +51,31 @@ As you probably recognized, the graph you made is really hard to read.
 library(tidyverse)
 spotifynew <- separate(spotify, "genre", into = c("gen1", "gen2", "gen3", "gen4"), sep = ",")
 ```
-
+√
 7. Use these genre columns to create a dataset in long format. 
 ```{r}
 spotifylong <- pivot_longer(spotifynew, cols = c(colnames(spotifynew[6:9])), names_to = "genre")
 ```
-
+√
 8.use facet wrap to make graphs of artist by genre 
 ```{r}
 ggplot(spotify, aes(artist))+
   geom_bar()+
   facet_wrap(~genre)
 ```
-
+√
 9. Create a graph that includes the variables tempo and dancability. 
 ```{r}
 ggplot(spotify, aes(tempo, danceability))+
   geom_point()
 ```
-
+√
 10. Add popularity as a third variable. 
 ```{r}
 ggplot(spotify, aes(tempo, danceability, fill = popularity))+
   geom_point()
 ```
-
+color is needed for scatterplots, not fill
 11. Use viridis as a color in your graph from #10
 ```{r}
 library(viridis)
@@ -82,3 +83,4 @@ ggplot(spotify, aes(tempo, danceability, fill = popularity))+
   geom_point()+
   scale_color_viridis(discrete = TRUE, option = "inferno")
 ```
+same issue as above
