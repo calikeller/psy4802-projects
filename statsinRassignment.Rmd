@@ -1,0 +1,59 @@
+---
+title: "statsinRassignment"
+author: "Cali Keller"
+date: "2025-11-18"
+output: html_document
+---
+
+1. Open the diamonds dataset from ggplot2.   
+```{r}
+library(ggplot2)
+data(diamonds)
+```
+2. Run a correlation between the x and y variables. What do you notice?
+```{r}
+cor(diamonds$x, diamonds$y)
+#they are highly correlatted
+```
+
+3. What is the correlation between price and carat?
+```{r}
+cor(diamonds$price, diamonds$carat)
+```
+
+4. Create a linear model predicting price from table. What is the coefficient for table? 
+```{r}
+lm(price~table, data = diamonds)
+```
+
+5. Run a regression and an Anova predicting price from color. What do you notice about the two types of output? 
+```{r}
+a1 <- lm(price ~ color, data = diamonds)
+anova(a1)
+```
+
+6. Run a t test to determine if "D" color diamonds are more expensive than "E" color diamonds. 
+```{r}
+D <- diamonds$color == "D"
+E <- diamonds$color == "E"
+t.test(D, E)
+```
+
+7. Open the warpbreaks dataset. What test would you use to determine the correlation between wool type and breaks?
+```{r}
+data(warpbreaks)
+```
+
+8. What is the correlation between wool type and breaks? 
+```{r}
+levels(warpbreaks$wool) <- c(0,1)
+warpbreaks$wool <- as.numeric(levels(warpbreaks$wool)[warpbreaks$wool])
+cor(warpbreaks$wool, warpbreaks$breaks)
+```
+
+9. A student has a 35 question, multiple choice test. Each question has 4 choices. If they answered 17 questions correctly, did their responses differ from chance?
+```{r}
+binom.test(17, 35, .25)
+#yes, that is higher than by chance.
+```
+
