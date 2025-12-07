@@ -10,6 +10,7 @@ author: "Amanda Mae Woodward"
 date: "2025-10-15"
 output: html_document
 ---
+# should only have one heading 
 
 This quiz will focus on data frame manipulation, however, you may need to rely on skills you've learned in prior weeks. 
 
@@ -18,18 +19,18 @@ This quiz will focus on data frame manipulation, however, you may need to rely o
 library(tidyverse)
 data(starwars)
 ```
-
+√
 2. separate the films column so that there is one film in each column (don't worry about the "c(" and ) at the end for now)
 ```{r}
 sepstarwars <- separate(starwars, films, into = c("film 1", "film 2", "film 3", "film 4", "film 5", "film 6", "film 7"), ",")
 ```
-
+√
 3. alter the data from wide data to long data
 ```{r}
 library(tidyr)
 starwarslong <- pivot_longer(sepstarwars, cols = 12:18, names_to = "film number", values_to = "film title")
 ```
-
+√
 4. in the column where you stored the films, rename the levels so each film name is consistent (e.g. get rid of the "c(" and ")" )
 ```{r}
 sepstarwars$`film 1` <- recode(sepstarwars$`film 1`, 'c("A New Hope"'= "A New Hope", 'c("Attack of the Clones"' = "Attack of the Clones", 'c("Return of the Jedi"' = "Return of the Jedi", 'c("The Empire Strikes Back"' = "The Empire Strikes Back", 'c("The Phantom Menace"' = "The Phantom Menace")
@@ -52,19 +53,20 @@ levels(sepstarwars$`film 6`) <- c("Revenge of the Sith", "Revenge of the Sith")
 sepstarwars$`film 7` <- as.factor(sepstarwars$`film 7`)
 levels(sepstarwars$`film 7`) <- "The Force Awakens"
 ```
-
+√
 5. Create a column in your dataset that indicates whether a character was in the first starwars film, *Star Wars Episode IV: A New Hope* 
 ```{r}
 sepstarwars$firstfilm <- ifelse(sepstarwars$`film 1` == "A New Hope", "Yes", "No")
 ```
-
+√
 6. BMI is calculated as mass in Kg/height in meters squared. You currently have mass in Kg and height in cm. Create a column that contains each character's BMI. 
 ```{r}
 sepstarwars$BMI <- (sepstarwars$mass/(sepstarwars$height/100)^2)
 ```
-
+√
 7. create a dataframe that contains only the name, hair color, and eye color for each character. 
 ```{r}
 starwarstiny <- select(sepstarwars, "name", "hair_color", "eye_color")
 ```
-
+√
+√√
